@@ -1,6 +1,8 @@
 import React, {ReactElement} from "react";
 import {StatusBar, SafeAreaView} from "react-native";
+import {color} from "react-native-reanimated";
 import {AppProvider, UserProvider} from "./provider";
+import {colors} from "./theme";
 
 interface RootLayoutProps {
   children: ReactElement;
@@ -20,7 +22,7 @@ function RootLayout({children}: RootLayoutProps): ReactElement {
             style={{
               flexGrow: 1,
               paddingTop: 40,
-              backgroundColor: "#222222",
+              backgroundColor: colors.darkGrey,
             }}>
             {children}
           </SafeAreaView>

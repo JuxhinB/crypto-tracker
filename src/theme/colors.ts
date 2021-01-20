@@ -19,7 +19,7 @@ const colors: ColorsProps = {
   lightGray: "#CACACA",
   lighterGray: "#e8e8e8f2",
   gray: "#96999C",
-  darkGrey: "#313133",
+  darkGrey: "#222222",
   green: "#2E9637",
   blue: "#2887CB",
 };
