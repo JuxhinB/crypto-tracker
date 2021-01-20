@@ -1,6 +1,6 @@
 import React, {ReactElement} from "react";
 import {View} from "react-native";
-import RootLayout from "../../RootScreen";
+import RootLayout from "../../RootLayout";
 
 function Layout(): ReactElement {
   return (
