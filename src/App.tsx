@@ -3,6 +3,7 @@ import {Provider} from "react-redux";
 import SplashScreen from "react-native-splash-screen";
 import navigation from "./navigation";
 import store from "./store/store";
+import {AppProvider, UserProvider} from "./provider";
 
 function App() {
   useEffect(() => {
@@ -11,7 +12,11 @@ function App() {
 
   return (
     <Provider store={store}>
-      <navigation.NavigationWrap />
+      <AppProvider>
+        <UserProvider>
+          <navigation.NavigationWrap />
+        </UserProvider>
+      </AppProvider>
     </Provider>
   );
 }

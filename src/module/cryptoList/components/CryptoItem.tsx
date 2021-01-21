@@ -1,10 +1,18 @@
 import {AxiosError, AxiosResponse} from "axios";
-import React, {ReactElement, useCallback, useEffect, useState} from "react";
-import {ActivityIndicator, View} from "react-native";
+import React, {
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import {ActivityIndicator, TouchableOpacity, View} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 import {fetchApi} from "../../../core/Api";
 import global from "../../../global";
 import {colors, fonts, metrics} from "../../../theme";
 import {CryptoResponse, CryptoData} from "../../../Types";
+import {AppContext} from "../../../provider";
 
 interface CryptoItemProps {
   symbol: string;
@@ -13,6 +21,8 @@ interface CryptoItemProps {
 }
 
 function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
+  const navigation = useNavigation();
+  const {setActiveHomeTab} = useContext(AppContext);
   const [coinDetails, setCoinDetails] = useState<CryptoData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -24,7 +34,7 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
     })
       .then((r: AxiosResponse<CryptoResponse>) => {
         if (r.status === 200) {
-          console.log(r.data.data);
+          // console.log(r.data.data);
           setCoinDetails(r.data.data);
         }
       })
@@ -41,7 +51,7 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
   }, []);
 
   return (
-    <View
+    <TouchableOpacity
       style={{
         borderRadius: 5,
         marginVertical: metrics.smallMargin - 3,
@@ -60,6 +70,12 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
         shadowRadius: 2.22,
 
         elevation: 3,
+      }}
+      onPress={() => {
+        navigation.navigate("CryptoDetails", {
+          test: "test",
+        });
+        setActiveHomeTab("CryptoDetails");
       }}>
       <View
         style={{
@@ -150,7 +166,7 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
           </>
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

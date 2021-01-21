@@ -3,13 +3,13 @@ import LocalizedStrings, {
 } from "react-native-localization";
 
 export interface StringProps extends LocalizedStringsMethods {
-  PAGES: any;
   STRINGS: any;
   GLOBALS: any;
   LABELS: any;
   ACTIONS: any;
   MESSAGES: any;
   ERRORS: any;
+  SCREENS: any;
 }
 
 let _string: StringProps = new LocalizedStrings({

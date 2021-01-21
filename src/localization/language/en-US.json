@@ -1,9 +1,15 @@
 {
-  "GLOBAL": {},
-  "LABEL": {},
-  "ACTION": {},
-  "MESSAGE": {},
-  "ERROR": {
+  "SCREENS": {
+    "home": "Home",
+    "profile": "Profile",
+    "bookmarks": "Bookmarks"
+  },
+  "GLOBALS": {},
+  "LABELS": {},
+  "ACTIONS": {},
+  "MESSAGES": {},
+  "STRINGS": {},
+  "ERRORS": {
     "error": "Error"
   }
 }
