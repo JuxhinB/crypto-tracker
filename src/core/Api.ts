@@ -8,11 +8,7 @@ interface FetchApiProps extends AxiosRequestConfig {
 }
 
 export async function fetchApi({
-  baseUrl = `${
-    process.env.NEXT_PUBLIC_ENABLED_LOCAL_EMULATORS_SETUP == "true"
-      ? process.env.NEXT_PUBLIC_DEV_URL
-      : process.env.NEXT_PUBLIC_PROD_FUNCTIONS_URL
-  }`,
+  baseUrl = `${""}`,
   method,
   url,
   data = null,

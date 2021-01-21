@@ -1,9 +1,9 @@
-export interface Response {
+export interface CryptoResponse {
   status: Status;
-  data:   Data;
+  data:   CryptoData;
 }
 
-export interface Data {
+export interface CryptoData {
   id:                        string;
   symbol:                    string;
   name:                      string;

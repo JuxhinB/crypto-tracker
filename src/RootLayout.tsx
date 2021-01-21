@@ -21,7 +21,7 @@ function RootLayout({children}: RootLayoutProps): ReactElement {
           <SafeAreaView
             style={{
               flexGrow: 1,
-              paddingTop: 40,
+              paddingTop: 10,
               backgroundColor: colors.darkGrey,
             }}>
             {children}

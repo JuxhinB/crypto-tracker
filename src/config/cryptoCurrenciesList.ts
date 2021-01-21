@@ -18,7 +18,6 @@ const list: string[] = [
   "XLM",
   "VTC",
   "ETH",
-  "ETC",
   "Nano",
   "USDT",
 ];
