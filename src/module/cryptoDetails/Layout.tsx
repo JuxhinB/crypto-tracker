@@ -2,8 +2,11 @@ import React, {ReactElement, useContext, useEffect} from "react";
 import {View} from "react-native";
 import {AppContext} from "../../provider";
 import RootLayout from "../../RootLayout";
+import {CryptoData} from "../../Types";
+import CryptoDetailsProvider from "./CryptoDetailsProvider";
 
-function Layout(): ReactElement {
+function Layout({route, navigation}: any): ReactElement {
+  const {details} = route.params;
   const {setActiveHomeTab} = useContext(AppContext);
 
   useEffect(() => {
@@ -12,7 +15,9 @@ function Layout(): ReactElement {
 
   return (
     <RootLayout>
-      <View></View>
+      <CryptoDetailsProvider details={details as CryptoData}>
+        <View></View>
+      </CryptoDetailsProvider>
     </RootLayout>
   );
 }

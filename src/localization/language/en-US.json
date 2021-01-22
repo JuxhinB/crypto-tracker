@@ -2,12 +2,22 @@
   "SCREENS": {
     "home": "Home",
     "profile": "Profile",
-    "bookmarks": "Bookmarks"
+    "bookmarks": "Bookmarks",
+    "search": "Search"
   },
   "GLOBALS": {},
-  "LABELS": {},
-  "ACTIONS": {},
-  "MESSAGES": {},
+  "LABELS": {
+    "search_box_example": "Ex. BTC, ETH, LTh"
+  },
+  "ACTIONS": {
+    "search": "Search"
+  },
+  "MESSAGES": {
+    "cannot_load_crypto_details": "Crypto currency details couldn't be loaded!",
+    "no_coin_selected": "It seems that you have not selected any CryptoCurrency yet.",
+    "crypto_currency_exists": "Crypto currency is already added as favorite!",
+    "crypto_currency_added": "Crypto currency was added as favorite!"
+  },
   "STRINGS": {},
   "ERRORS": {
     "error": "Error"

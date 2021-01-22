@@ -7,6 +7,7 @@ interface ColorsProps {
   lighterGray: string;
   gray: string;
   darkGrey: string;
+  darkerGrey: string;
   green: string;
   blue: string;
 }
@@ -20,6 +21,7 @@ const colors: ColorsProps = {
   lighterGray: "#e8e8e8f2",
   gray: "#96999C",
   darkGrey: "#222222",
+  darkerGrey: "#151515",
   green: "#2E9637",
   blue: "#2887CB",
 };

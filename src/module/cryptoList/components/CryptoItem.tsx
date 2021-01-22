@@ -8,11 +8,14 @@ import React, {
 } from "react";
 import {ActivityIndicator, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
+import Toast from "react-native-simple-toast";
 import {fetchApi} from "../../../core/Api";
 import global from "../../../global";
 import {colors, fonts, metrics} from "../../../theme";
 import {CryptoResponse, CryptoData} from "../../../Types";
 import {AppContext} from "../../../provider";
+import _string from "../../../localization/_string";
+import {CryptoListContext} from "../CryptoListProvider";
 
 interface CryptoItemProps {
   symbol: string;
@@ -23,6 +26,7 @@ interface CryptoItemProps {
 function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
   const navigation = useNavigation();
   const {setActiveHomeTab} = useContext(AppContext);
+  const {reloadData} = useContext(CryptoListContext);
   const [coinDetails, setCoinDetails] = useState<CryptoData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -48,7 +52,7 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
 
   useEffect(() => {
     getCryptoData();
-  }, []);
+  }, [reloadData]);
 
   return (
     <TouchableOpacity
@@ -56,7 +60,7 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
         borderRadius: 5,
         marginVertical: metrics.smallMargin - 3,
         padding: metrics.smallMargin,
-        backgroundColor: `${colors.lightGray}20`,
+        backgroundColor: `#2d2d2d`,
         overflow: "hidden",
         borderLeftWidth: 1,
         borderColor: `${color}80`,
@@ -72,9 +76,11 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
         elevation: 3,
       }}
       onPress={() => {
-        navigation.navigate("CryptoDetails", {
-          test: "test",
-        });
+        if (coinDetails) {
+          navigation.navigate("CryptoDetails", {details: coinDetails});
+        } else {
+          Toast.show(_string.MESSAGES.cannot_load_crypto_details);
+        }
         setActiveHomeTab("CryptoDetails");
       }}>
       <View
@@ -84,14 +90,6 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
           justifyContent: "space-between",
           flexDirection: "row",
         }}>
-        {/* Loader */}
-        {isLoading && (
-          <View
-            style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-            <ActivityIndicator size="small" color={`${colors.white}80`} />
-          </View>
-        )}
-        {/* End Loader */}
         {/* Static Crypto Name */}
         <global.Text
           style={{
@@ -106,63 +104,78 @@ function CryptoItem({symbol, id, color}: CryptoItemProps): ReactElement {
         </global.Text>
         {/* End Static Crypto Name */}
 
-        {coinDetails && (
+        {/* Loader */}
+        {isLoading ? (
+          <View
+            style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <ActivityIndicator size="small" color={`${colors.white}80`} />
+          </View>
+        ) : (
           <>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "flex-end",
-              }}>
-              <global.Text
-                style={{fontSize: fonts.size.h2, color: `${colors.white}98`}}>
-                {coinDetails?.name}
-              </global.Text>
+            {/* End Loader */}
 
-              <global.Text
-                style={{
-                  fontSize: fonts.size.medium,
-                  color: `${colors.white}96`,
-                }}>
-                {coinDetails?.market_data.price_usd
-                  ? `$ ${coinDetails?.market_data.price_usd.toFixed(3)}`
-                  : ""}
-              </global.Text>
-            </View>
+            {coinDetails && (
+              <>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
+                  }}>
+                  <global.Text
+                    style={{
+                      fontSize: fonts.size.h2,
+                      color: `${colors.white}98`,
+                    }}>
+                    {coinDetails?.name}
+                  </global.Text>
 
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "flex-end",
-                alignItems: "flex-end",
-              }}>
-              <global.Text
-                style={{
-                  color:
-                    coinDetails?.market_data.percent_change_usd_last_24_hours <
-                    0
-                      ? `${colors.red}97`
-                      : `${colors.green}97`,
-                  fontSize: fonts.size.h6,
-                }}>
-                {coinDetails?.market_data.percent_change_usd_last_24_hours
-                  ? coinDetails?.market_data.percent_change_usd_last_24_hours.toFixed(
-                      2,
-                    )
-                  : ""}
-              </global.Text>
+                  <global.Text
+                    style={{
+                      fontSize: fonts.size.medium,
+                      color: `${colors.white}96`,
+                    }}>
+                    {coinDetails?.market_data.price_usd
+                      ? `$ ${coinDetails?.market_data.price_usd.toFixed(3)}`
+                      : ""}
+                  </global.Text>
+                </View>
 
-              <global.Text
-                style={{
-                  fontSize: fonts.size.medium,
-                  color: `${colors.white}96`,
-                }}>
-                {coinDetails?.marketcap.marketcap_dominance_percent
-                  ? `${coinDetails?.marketcap.marketcap_dominance_percent.toFixed(
-                      1,
-                    )}%`
-                  : ""}
-              </global.Text>
-            </View>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
+                    alignItems: "flex-end",
+                  }}>
+                  <global.Text
+                    style={{
+                      color:
+                        coinDetails?.market_data
+                          .percent_change_usd_last_24_hours < 0
+                          ? `${colors.red}98`
+                          : `${colors.green}98`,
+                      fontSize: fonts.size.h6,
+                    }}>
+                    {coinDetails?.market_data.percent_change_usd_last_24_hours
+                      ? coinDetails?.market_data.percent_change_usd_last_24_hours.toFixed(
+                          2,
+                        )
+                      : ""}
+                  </global.Text>
+
+                  <global.Text
+                    style={{
+                      fontSize: fonts.size.medium,
+                      color: `${colors.white}96`,
+                    }}>
+                    {coinDetails?.marketcap.marketcap_dominance_percent
+                      ? `${coinDetails?.marketcap.marketcap_dominance_percent.toFixed(
+                          1,
+                        )}%`
+                      : ""}
+                  </global.Text>
+                </View>
+              </>
+            )}
           </>
         )}
       </View>

@@ -1,11 +1,9 @@
-import profile from "./profile";
+import search from "./search";
 import cryptoList from "./cryptoList";
 import cryptoDetails from "./cryptoDetails";
-import bookmarkedCryptoList from "./bookmarkedCryptoList";
 
 export default {
-  profile,
+  search,
   cryptoList,
   cryptoDetails,
-  bookmarkedCryptoList,
 };

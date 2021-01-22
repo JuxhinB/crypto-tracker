@@ -24,14 +24,9 @@ const bottomTabsConfig: NavigationItem[] = [
     label: _string.SCREENS.home,
   },
   {
-    route: "Profile",
-    icon: "person",
-    label: _string.SCREENS.profile,
-  },
-  {
-    route: "BookmarkedCryptoList",
-    icon: "bookmark",
-    label: _string.SCREENS.bookmarks,
+    route: "Search",
+    icon: "search",
+    label: _string.SCREENS.search,
   },
 ];
 
@@ -50,17 +45,13 @@ function NavigationWrap(): ReactElement {
         }}
         tabBar={(props) => <CustomTabBar {...props} />}>
         <Screen name="CryptoList" component={module.cryptoList.Layout} />
-        <Screen name="Profile" component={module.profile.Layout} />
+        <Screen name="Search" component={module.search.Layout} />
         <Screen
           name="CryptoDetails"
           component={module.cryptoDetails.Layout}
           options={{
             tabBarVisible: false,
           }}
-        />
-        <Screen
-          name="BookmarkedCryptoList"
-          component={module.bookmarkedCryptoList.Layout}
         />
       </Navigator>
     </NavigationContainer>
@@ -83,15 +74,8 @@ function CustomTabBar({navigation}: any) {
       style={{
         flexDirection: "row",
         justifyContent: "space-around",
-        backgroundColor: colors.darkGrey,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 1,
-        },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.0,
-        elevation: 1,
+        alignItems: "center",
+        backgroundColor: colors.darkerGrey,
         height: metrics.navBarHeight,
         zIndex: 1,
       }}>
