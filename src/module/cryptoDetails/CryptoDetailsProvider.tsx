@@ -6,9 +6,13 @@ interface CryptoDetailsProviderProps {
   details: CryptoData;
 }
 
-interface CryptoDetailsContextProps {}
+interface CryptoDetailsContextProps {
+  details: CryptoData | null;
+}
 
-const CRYPTO_DETAILS_CONTEXT_INITIAL_VALUES = {};
+const CRYPTO_DETAILS_CONTEXT_INITIAL_VALUES = {
+  details: null,
+};
 
 export const CryptoDetailsContext = createContext<CryptoDetailsContextProps>(
   CRYPTO_DETAILS_CONTEXT_INITIAL_VALUES,
@@ -18,7 +22,9 @@ function CryptoDetailsProvider({
   children,
   details,
 }: CryptoDetailsProviderProps): ReactElement {
-  const providerValue = {};
+  const providerValue = {
+    details,
+  };
 
   return (
     <CryptoDetailsContext.Provider value={providerValue}>

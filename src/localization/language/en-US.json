@@ -7,16 +7,23 @@
   },
   "GLOBALS": {},
   "LABELS": {
-    "search_box_example": "Ex. BTC, ETH, LTh"
+    "search_box_example": "Ex. BTC, ETH, LTh",
+    "roi_data": "Return on Investment",
+    "last_weekly": "Last Week",
+    "last_monthly": "Last Monthly",
+    "last_yearly": "Last Year",
+    "price": "Price"
   },
   "ACTIONS": {
-    "search": "Search"
+    "search": "Search",
+    "remove": "Remove"
   },
   "MESSAGES": {
     "cannot_load_crypto_details": "Crypto currency details couldn't be loaded!",
     "no_coin_selected": "It seems that you have not selected any CryptoCurrency yet.",
     "crypto_currency_exists": "Crypto currency is already added as favorite!",
-    "crypto_currency_added": "Crypto currency was added as favorite!"
+    "crypto_currency_added": "Crypto currency was added as favorite!",
+    "crypto_currency_removed": "Crypto currency removed!"
   },
   "STRINGS": {},
   "ERRORS": {

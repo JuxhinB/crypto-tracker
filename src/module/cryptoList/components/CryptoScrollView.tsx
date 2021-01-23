@@ -22,6 +22,7 @@ function CryptoScrollView(): ReactElement {
   >([]);
 
   useEffect(() => {
+    console.log(cryptoList);
     if (cryptoList) {
       setList();
     }

@@ -7,6 +7,8 @@ import React, {
   useState,
 } from "react";
 import {useSelector} from "react-redux";
+import _string from "../localization/_string";
+import Toast from "react-native-simple-toast";
 import {
   selectIsValidUser,
   selectUserProfile,
@@ -21,11 +23,13 @@ interface UserProviderProps {
 interface UserContextProps {
   cryptoList: string[];
   getList: () => void;
+  removeCoin: (symbol: string) => void;
 }
 
 const USER_CONTEXT_INITIAL_VALUES = {
   cryptoList: [],
   getList: () => undefined,
+  removeCoin: (symbol: string) => undefined,
 };
 
 export const UserContext = createContext<UserContextProps>(
@@ -44,6 +48,7 @@ function UserProvider({children}: UserProviderProps): ReactElement {
 
     if (!rawList || (list && !list.length)) {
       await AsyncStorage.setItem("cryptoList", JSON.stringify([]));
+      setCryptoList([]);
       return;
     }
 
@@ -54,9 +59,22 @@ function UserProvider({children}: UserProviderProps): ReactElement {
     getList();
   }, []);
 
+  async function removeCoin(symbol: string) {
+    let rawItems = await AsyncStorage.getItem("cryptoList");
+    let items = JSON.parse(rawItems as string);
+
+    items = items.filter((item: string) => item !== symbol.toLowerCase());
+
+    await AsyncStorage.setItem("cryptoList", JSON.stringify(items));
+    Toast.show(_string.MESSAGES.crypto_currency_removed);
+
+    getList();
+  }
+
   const providerValue = {
     cryptoList,
     getList,
+    removeCoin,
   };
 
   return (
